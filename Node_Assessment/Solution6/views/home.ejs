@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.socket.io/socket.io-3.0.1.min.js"></script>
+    <title>Connection</title>
+</head>
+
+<body>
+
+    <input type="text" class="message">
+    <button onclick="sendMessage">Send Message</button>
+    <h1>hello everyone</h1>
+    <script>
+        const socket = io("http://localhost:8000")
+       socket.on('Connection')
+       socket.on('message', (data) => {
+        document.querySelector('h1').innerHTML = data
+        })
+        //This code establishes a socket connection to a server running at "http://localhost:8000". 
+        //It listens for a 'Connection' event and when a 'message' event is received, it updates the inner HTML of
+        // an h1 element with the received data.
+
+        const sendMessage = () => {
+            const messageInput = document.querySelector('.message')
+            const message = messageInput.value
+            socket.emit('message', message)
+        }
+        //This code defines a function called sendMessage that retrieves the value of an input field with the class "message". 
+        //It emits a 'message' event through the socket connection, sending the value of the input field as the message data.
+
+    </script>
+
+</body>
+
+</html>
